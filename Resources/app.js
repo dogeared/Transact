@@ -1,3 +1,7 @@
+var app = {};
+
+Titanium.include('utils/messages.js');
+
 Titanium.UI.setBackgroundColor('#000');
 
 var tabGroup = Titanium.UI.createTabGroup();
@@ -28,6 +32,7 @@ var tab2 = Titanium.UI.createTab({
 
 var win3 = Titanium.UI.createWindow({  
     title: 'Settings',
+    url: 'windows/settings.js',
     backgroundColor: '#fff'
 });
 
@@ -36,16 +41,6 @@ var tab3 = Titanium.UI.createTab({
     title: 'Settings',
     window: win3
 });
-
-var label3 = Titanium.UI.createLabel({
-	color: '#999',
-	text: 'I am Window 3',
-	font: {fontSize: 20,fontFamily: 'Helvetica Neue'},
-	textAlign: 'center',
-	width: 'auto'
-});
-
-win3.add(label3);
 
 tabGroup.addTab(tab1);  
 tabGroup.addTab(tab2);  
