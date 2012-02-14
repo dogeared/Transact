@@ -141,7 +141,7 @@ plusButton.addEventListener('click', function(e) {
 		description: descTF.getValue(), 
 		category: categoryLabel.text
 	};
-	TransactModel.credit(data, processResult);
+	TransactModel.credit(data);
 });
 
 var minusButton = Titanium.UI.createButton({
@@ -160,8 +160,12 @@ minusButton.addEventListener('click', function(e) {
 		description: descTF.getValue(), 
 		category: categoryLabel.text
 	};
-	TransactModel.debit(data, processResult);
+	TransactModel.debit(data);
 });
 
 win.add(plusButton);
 win.add(minusButton);
+
+Ti.App.addEventListener('transaction_result', function(e) {
+	processResult(e.result);
+});

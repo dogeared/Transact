@@ -1,6 +1,8 @@
 var app = {};
+var services = {};
 
 Titanium.include('utils/messages.js');
+Titanium.include('controllers/custom_events.js');
 
 Titanium.UI.setBackgroundColor('#000');
 
