@@ -13,9 +13,9 @@
     <version>0.1</version>
     <publisher>A Fit Nerd</publisher>
     <url>http://afitnerd.com</url>
-    <description>Simple transaction recrods</description>
+    <description>Simple transaction records</description>
     <copyright>2012 by Micah Silverman</copyright>
-    <icon>appicon.png</icon>
+    <icon>icon.png</icon>
     <persistent-wifi>false</persistent-wifi>
     <prerendered-icon>false</prerendered-icon>
     <statusbar-style>default</statusbar-style>

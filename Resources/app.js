@@ -15,7 +15,7 @@ var win1 = Titanium.UI.createWindow({
 });
 
 var tab1 = Titanium.UI.createTab({  
-    icon: 'KS_nav_views.png',
+    icon: 'images/tabs/piggy.png',
     title: 'Transact',
     window: win1
 });
@@ -27,7 +27,7 @@ var win2 = Titanium.UI.createWindow({
 });
 
 var tab2 = Titanium.UI.createTab({  
-    icon: 'KS_nav_ui.png',
+    icon: 'images/tabs/safe.png',
     title: 'History',
     window: win2
 });
@@ -39,7 +39,7 @@ var win3 = Titanium.UI.createWindow({
 });
 
 var tab3 = Titanium.UI.createTab({  
-    icon: 'KS_nav_ui.png',
+    icon: 'images/tabs/preferences.png',
     title: 'Settings',
     window: win3
 });
