@@ -48,7 +48,9 @@ tabGroup.addTab(tab1);
 tabGroup.addTab(tab2);  
 tabGroup.addTab(tab3);
 
-tabGroup.open();
+tabGroup.open({
+	transition: Titanium.UI.iPhone.AnimationStyle.CURL_UP
+});
 
 if (Titanium.App.Properties.getBool('save')) {
 	SessionModel.save = true;

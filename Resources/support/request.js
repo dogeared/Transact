@@ -1,5 +1,11 @@
 Ti.include('/config/defaults.js');
 
+if (Titanium.Platform.model == 'x86_64' || Titanium.Platform.model == 'Simulator') {
+	config.env = 'development';
+} else {
+	config.env = 'production';
+}
+
 var request = {
   xhr: Ti.Network.createHTTPClient(),
   configEnv: config.environments[config.env]
