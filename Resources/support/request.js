@@ -14,7 +14,6 @@ request.init = function() {
 request.registerHandlers = function(callback) {
   request.xhr.onload = function(e) {
     try {
-      Ti.API.info("in xhr onload handler with response: " + request.xhr.responseText);
       var responseData = JSON.parse(request.xhr.responseText);
       callback(e.error, responseData);
     } catch (err) {

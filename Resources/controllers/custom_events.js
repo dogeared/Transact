@@ -25,3 +25,15 @@ Ti.App.addEventListener('do_transaction', function(e) {
   	Ti.App.fireEvent('transaction_result', {result: result});
   })
 });
+
+Ti.App.addEventListener('do_get_history', function() {
+	request.get(config.endpoints.history, {}, function(err, response) {
+		Ti.App.fireEvent('get_history_result', {data: response.result});
+	});
+});
+
+Ti.App.addEventListener('do_update_history', function(e) {
+	request.post(config.endpoints.process, {ids: e.ids}, function(err, response) {
+		Ti.App.fireEvent('get_history_result', {data: response.result});
+	});
+});
