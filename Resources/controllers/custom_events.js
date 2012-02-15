@@ -1,6 +1,7 @@
 Ti.include('/support/request.js');
 Ti.include('/services/auth_service.js');
 Ti.include('/services/transaction_service.js');
+Titanium.include('/models/session_model.js');
 
 request.init();
 
@@ -18,6 +19,21 @@ Ti.App.addEventListener('do_auth', function(e) {
       Ti.App.fireEvent('auth_result', { authenticated: authenticated });
     }
   );
+});
+
+Ti.App.addEventListener('auth_result', function(e) {
+	if (e.authenticated) {
+		var message = 'Conrgrats! You are logged in.';	
+	} else {
+		var message = 'Boo! Bad token.';
+	}
+	Ti.App.fireEvent('message', {
+		message: message
+	});
+});
+
+Ti.App.addEventListener('get_session_model', function(e) {
+	Ti.App.fireEvent('get_session_model_result', {SessionModel: SessionModel});
 });
 
 Ti.App.addEventListener('do_transaction', function(e) {

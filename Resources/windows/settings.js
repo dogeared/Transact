@@ -42,7 +42,7 @@ var switchLabel = Titanium.UI.createLabel({
 	text: 'Save?: '
 });
 
-var basicSwitch = Titanium.UI.createSwitch({
+var saveSwitch = Titanium.UI.createSwitch({
 	top: 120,
 	left: 100,
     value: false
@@ -52,12 +52,23 @@ win.add(label);
 win.add(tf);
 win.add(loginButton);
 win.add(switchLabel);
-win.add(basicSwitch);
+win.add(saveSwitch);
 
 /**
  * Event handlers
  * 
  */
+
+Ti.App.addEventListener('get_session_model_result', function(e) {
+	if (e.SessionModel.save) {
+		tf.value = e.SessionModel.token;
+		saveSwitch.setValue(true);
+	}
+});
+
+win.addEventListener('focus', function() {
+	Ti.App.fireEvent('get_session_model');
+})
 
 tf.addEventListener('return', function() {
 	tf.blur();
@@ -67,12 +78,15 @@ loginButton.addEventListener('click', function() {
   tf.blur();
   Ti.App.fireEvent('do_auth', {
     token: tf.value
-  }); // support/custom_events.js
+  });
 });
 
-Ti.App.addEventListener('auth_result', function(e) {
-	var message = (e.authenticated)?'Conrgrats! You are logged in.':'Boo! Bad token.';
-	Ti.App.fireEvent('message', {
-		message: message
-	});
+saveSwitch.addEventListener('change', function(e) {
+	if (e.value) {
+		Titanium.App.Properties.setBool('save', true);
+    	Titanium.App.Properties.setString('token', tf.value);
+	} else {
+		Titanium.App.Properties.removeProperty('save');
+		Titanium.App.Properties.removeProperty('token');
+	}
 });
