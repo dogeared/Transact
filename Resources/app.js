@@ -53,7 +53,6 @@ tabGroup.open({
 });
 
 if (Titanium.App.Properties.getBool('save')) {
-	SessionModel.save = true;
-	SessionModel.token = Titanium.App.Properties.getString('token');
+	SessionModel.update(Titanium.App.Properties.getString('token'), true);
 	Ti.App.fireEvent('do_auth', {token: SessionModel.token});
 }

@@ -1,55 +1,54 @@
 Ti.include('/support/request.js');
 Ti.include('/services/auth_service.js');
 Ti.include('/services/transaction_service.js');
-Titanium.include('/models/session_model.js');
+Ti.include('/services/history_service.js');
+Ti.include('/models/session_model.js');
 
 request.init();
 
 Ti.App.addEventListener('do_auth', function(e) {
   services.AuthService.authenticate(e.token,
     function(err, response) {
-      var authenticated = false;
+      var message = 'Boo! Bad token.';
       if (err) {
-        Ti.App.fireEvent('message', {
-          message: 'Cannot connect to server. Please contact support.'
-        });
+		message = 'Cannot connect to server.';
       } else if (response.status === 'SUCCESS') {
-        authenticated = true;
+        message = 'Conrgrats! You are logged in.';
       }
-      Ti.App.fireEvent('auth_result', { authenticated: authenticated });
+      Ti.App.fireEvent('message', {message: message});
     }
   );
-});
-
-Ti.App.addEventListener('auth_result', function(e) {
-	if (e.authenticated) {
-		var message = 'Conrgrats! You are logged in.';	
-	} else {
-		var message = 'Boo! Bad token.';
-	}
-	Ti.App.fireEvent('message', {
-		message: message
-	});
 });
 
 Ti.App.addEventListener('get_session_model', function(e) {
 	Ti.App.fireEvent('get_session_model_result', {SessionModel: SessionModel});
 });
 
+Ti.App.addEventListener('set_session_model', function(e) {
+	SessionModel.update(e.token, e.save);
+})
+
 Ti.App.addEventListener('do_transaction', function(e) {
-  services.TransactionService.transact(e.data, function(result) {
-  	Ti.App.fireEvent('transaction_result', {result: result});
+  services.TransactionService.transact(e.data, function(response) {
+  	Ti.App.fireEvent('transaction_result', {result: response});
   })
 });
 
-Ti.App.addEventListener('do_get_history', function() {
-	request.get(config.endpoints.history, {}, function(err, response) {
+var historyResponse = function(response) {
+	Ti.App.fireEvent('message', {message: response.message});
+	if (response.status !== 'FAILURE') {
 		Ti.App.fireEvent('get_history_result', {data: response.result});
+	}	
+}
+
+Ti.App.addEventListener('do_get_history', function() {
+	services.HistoryService.getHistory(function(response) {
+		historyResponse(response);
 	});
 });
 
 Ti.App.addEventListener('do_update_history', function(e) {
-	request.post(config.endpoints.process, {ids: e.ids}, function(err, response) {
-		Ti.App.fireEvent('get_history_result', {data: response.result});
+	services.HistoryService.process(e.ids, function(response) {
+		historyResponse(response);
 	});
 });

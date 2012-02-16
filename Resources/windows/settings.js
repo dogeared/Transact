@@ -74,6 +74,10 @@ tf.addEventListener('return', function() {
 	tf.blur();
 });
 
+tf.addEventListener('blur', function() {
+	Ti.App.fireEvent('set_session_model', {token: tf.value, save: saveSwitch.value});
+});
+
 loginButton.addEventListener('click', function() {
   tf.blur();
   Ti.App.fireEvent('do_auth', {
@@ -82,11 +86,5 @@ loginButton.addEventListener('click', function() {
 });
 
 saveSwitch.addEventListener('change', function(e) {
-	if (e.value) {
-		Titanium.App.Properties.setBool('save', true);
-    	Titanium.App.Properties.setString('token', tf.value);
-	} else {
-		Titanium.App.Properties.removeProperty('save');
-		Titanium.App.Properties.removeProperty('token');
-	}
+	Ti.App.fireEvent('set_session_model', {token: tf.value, save: saveSwitch.value});
 });

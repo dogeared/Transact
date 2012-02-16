@@ -6,7 +6,7 @@ var TransactModel = {
 		TransactModel.transact(data);
 	},
 	debit: function(data, callback) {
-		data.amount = (isNaN(parseInt(data.amount))) ? "" + 0 : "" + (0-parseFloat(data.amount));
+		data.amount = (isNaN(parseFloat(data.amount))) ? "" + 0 : "" + (0-parseFloat(data.amount));
 		TransactModel.transact(data);
 	}
 };
