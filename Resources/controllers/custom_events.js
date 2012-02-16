@@ -6,6 +6,13 @@ Ti.include('/models/session_model.js');
 
 request.init();
 
+Ti.App.addEventListener('resumed', function() {
+	if (Titanium.App.Properties.getBool('save')) {
+		SessionModel.update(Titanium.App.Properties.getString('token'), true);
+		Ti.App.fireEvent('do_auth', {token: SessionModel.token});
+	}
+});
+
 Ti.App.addEventListener('do_auth', function(e) {
   services.AuthService.authenticate(e.token,
     function(err, response) {

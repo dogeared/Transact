@@ -52,7 +52,4 @@ tabGroup.open({
 	transition: Titanium.UI.iPhone.AnimationStyle.CURL_UP
 });
 
-if (Titanium.App.Properties.getBool('save')) {
-	SessionModel.update(Titanium.App.Properties.getString('token'), true);
-	Ti.App.fireEvent('do_auth', {token: SessionModel.token});
-}
+Ti.App.fireEvent('resumed');
