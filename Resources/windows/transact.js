@@ -6,15 +6,12 @@ var data = [];
 
 var row = Titanium.UI.createTableViewRow();
 
-var now = new Date();
 var dateLabel = Titanium.UI.createLabel({
 	left: 5,
-	width: 'auto',
+	width: 200,
 	height: 'auto',
-	text: (now.getMonth()+1) + '/' + now.getDate() + '/' + now.getFullYear(),
 	font: { fontSize: 24, fontWeight: 'bold' },
-	textAlign: 'left',
-	dateValue: now
+	textAlign: 'left'
 });
 
 row.add(dateLabel);
@@ -169,3 +166,10 @@ win.add(minusButton);
 Ti.App.addEventListener('transaction_result', function(e) {
 	processResult(e.result);
 });
+
+Ti.App.addEventListener('update_date', function(e) {
+	dateLabel.setText((e.date.getMonth()+1) + '/' + e.date.getDate() + '/' + e.date.getFullYear());
+	dateLabel.dateValue = e.date;
+});
+
+Ti.App.fireEvent('update_date', {date: new Date()});

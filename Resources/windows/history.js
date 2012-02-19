@@ -73,7 +73,7 @@ Ti.App.addEventListener('get_history_result', function(e) {
 		var cLabel = Titanium.UI.createLabel({
 			top: 5,
 			left: 110,
-			width: 100,
+			width: 150,
 			height: 25,
 			text: data[i].category
 		});
@@ -84,7 +84,7 @@ Ti.App.addEventListener('get_history_result', function(e) {
 			left: 5,
 			width: 100,
 			height: 25,
-			text: '$'+data[i].amount
+			text: '$'+parseFloat(data[i].amount).toFixed(2)
 		});
 		row.add(aLabel);
 		

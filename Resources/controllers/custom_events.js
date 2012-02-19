@@ -11,6 +11,7 @@ Ti.App.addEventListener('resumed', function() {
 		SessionModel.update(Titanium.App.Properties.getString('token'), true);
 		Ti.App.fireEvent('do_auth', {token: SessionModel.token});
 	}
+	Ti.App.fireEvent('update_date', {date: new Date()});
 });
 
 Ti.App.addEventListener('do_auth', function(e) {
