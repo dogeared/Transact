@@ -1,0 +1,22 @@
+var config = {
+  environments: {
+    development: {
+      proto: 'http',
+      host: '127.0.0.1',
+      port: '3000'
+    },
+    production: {
+      proto: 'http',
+      host: 'my host',
+      port: 'my port'
+    }
+  },
+  endpoints: {
+	transaction: '/api/v1/transaction',
+	history: '/api/v1/history',
+	process: '/api/v1/process',
+	authenticate: '/api/v1/authenticate',
+	logout: '/api/v1/logout'
+  },
+  serviceTimeout: 8
+};
