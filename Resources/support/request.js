@@ -11,6 +11,11 @@ var request = {
   configEnv: config.environments[config.env]
 };
 
+request.setServer = function(server, port) {
+	request.configEnv.host = server;
+	request.configEnv.port = port;
+}
+
 request.init = function() {
   request.xhr.timeout = config.serviceTimeout * 1000;
   request.xhr.clearCookies(request.configEnv.proto + '://' + 
@@ -37,6 +42,7 @@ request.post = function(endpoint, params, callback) {
   
   var url = request.configEnv.proto + '://' + request.configEnv.host + ':' + 
   	request.configEnv.port + endpoint;
+  	
   request.xhr.open('POST', url);
 
   request.xhr.setRequestHeader('content-type', 'application/json');

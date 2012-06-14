@@ -8,13 +8,19 @@ request.init();
 
 Ti.App.addEventListener('resumed', function() {
 	if (Titanium.App.Properties.getBool('save')) {
-		SessionModel.update(Titanium.App.Properties.getString('token'), true);
+		SessionModel.update(
+	      Titanium.App.Properties.getString('token'), 
+	      Titanium.App.Properties.getString('server'),
+	      Titanium.App.Properties.getString('port'), 
+	      true
+	    );
 		Ti.App.fireEvent('do_auth', {token: SessionModel.token});
 	}
 	Ti.App.fireEvent('update_date', {date: new Date()});
 });
 
 Ti.App.addEventListener('do_auth', function(e) {
+  request.setServer(SessionModel.server, SessionModel.port);
   services.AuthService.authenticate(e.token,
     function(err, response) {
       var message = 'Boo! Bad token.';
@@ -33,7 +39,7 @@ Ti.App.addEventListener('get_session_model', function(e) {
 });
 
 Ti.App.addEventListener('set_session_model', function(e) {
-	SessionModel.update(e.token, e.save);
+	SessionModel.update(e.token, e.server, e.port, e.save);
 })
 
 Ti.App.addEventListener('do_transaction', function(e) {
