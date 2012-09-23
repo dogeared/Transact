@@ -7,7 +7,7 @@
         <target device="android">false</target>
         <target device="blackberry">false</target>
     </deployment-targets>
-    <sdk-version>1.8.1</sdk-version>
+    <sdk-version>2.1.2.GA</sdk-version>
     <id>com.afitnerd.transact</id>
     <name>Transact</name>
     <version>0.1</version>
